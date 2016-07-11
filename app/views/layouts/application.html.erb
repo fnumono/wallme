@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Wallme</title>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+
+
+
+<div id="main-container" class="container-fluid">
+  <div class="page-header">
+    <h1> WallMe </h1>
+  </div>
+  <div class="row">
+    <div id="sidebar" class="col-xs-3">
+      
+      <div class="dropdown">
+        <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">          
+          Dropdown
+          <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu">
+          <%= render 'devise/menu/registration' %>
+          <%= render 'devise/menu/login' %>
+        </ul>
+      </div>
+
+      <% if user_signed_in? %>
+
+        <%= form_tag(posts_path, :method => "get", class: "navbar-form", id: "search-form") do %>
+            
+              <%= text_field_tag :search, params[:search], class: "span2", placeholder: "Search Post" %>
+              <!-- In order to have the "search" icon int the button, we need to use plain HTML instead 
+                   of using a Rails form helper -->
+              <button class="glyphicon glyphicon-search" type="submit"><i></i></button>
+            
+         <% end %>
+
+      <% end %>
+
+    </div>
+    <div id="content" class="col-xs-9">
+      <%= yield %>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
